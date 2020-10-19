@@ -1,6 +1,7 @@
 package com.github.satoshun.example
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -48,6 +49,16 @@ class SerializationTest {
     println(Gson().fromJson(hoge, Response3::class.java))
     println(Gson().fromJson(fuga, Response3::class.java))
     println(Gson().fromJson(unknown, Response3::class.java))
+  }
+
+  @Test
+  fun test5() {
+    val gson = GsonBuilder()
+      .registerTypeAdapterFactory(LowercaseEnumTypeAdapterFactory())
+      .create()
+    println(gson.fromJson(hoge, Response3::class.java))
+    println(gson.fromJson(fuga, Response3::class.java))
+    println(gson.fromJson(unknown, Response3::class.java))
   }
 }
 
