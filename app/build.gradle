@@ -4,6 +4,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlinx-serialization'
 
 android {
   compileSdkVersion COMPILE_SDK
@@ -59,6 +60,9 @@ dependencies {
 
   implementation DAGGER_RUNTIME
   kapt DAGGER_COMPILER
+
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
+  implementation "com.google.code.gson:gson:2.8.6"
 
   testImplementation JUNIT
 
