@@ -50,6 +50,7 @@ class SerializationTest {
   fun test4() {
     println(Gson().fromJson(hoge, Response3::class.java))
     println(Gson().fromJson(fuga, Response3::class.java))
+    println(Gson().fromJson(nuga, Response3::class.java))
     println(Gson().fromJson(unknown, Response3::class.java))
   }
 
