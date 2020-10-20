@@ -12,6 +12,7 @@ import org.junit.Test
 class SerializationTest {
   val hoge = """{"name": "hoge"}"""
   val fuga = """{"name": "fuga"}"""
+  val nuga = """{"name": "NUGA"}"""
   val unknown = """{"name": "unknown"}"""
 
   @Test
@@ -41,6 +42,7 @@ class SerializationTest {
     }
     println(json.decodeFromString<Response2>(hoge))
     println(json.decodeFromString<Response2>(fuga))
+    println(json.decodeFromString<Response2>(nuga))
     println(json.decodeFromString<Response2>(unknown))
   }
 
@@ -76,6 +78,7 @@ data class Response2(
 enum class Name {
   @SerialName("hoge") HOGEHGOE,
   @SerialName("fuga") FUGAFUGA,
+  NUGA,
   EMPTY
 }
 
