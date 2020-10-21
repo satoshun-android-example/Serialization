@@ -9,32 +9,60 @@ import kotlinx.serialization.json.Json
 import org.junit.Test
 
 class ListTest {
-  val list = """[{"id": "1", "name": "2"}, {"id": "3", "name": "4"}]"""
+  private val json
+    get() = Json {
+      ignoreUnknownKeys = true
+    }
+
+  private val gson
+    get() = Gson()
+
+  val list = """[{"id": "1", "name": "2", "a": "gender"}, {"id": "3", "name": "4"}]"""
   val a = """{"list": $list}"""
   val b = """
     {"list": [{"id": "1", "name": "2", "list": $list}]}
   """
+  val c = """{"a": $list}"""
 
   @Test
   fun test() {
     val type = object : TypeToken<Response>() {}.type
-    assertThat(Json.decodeFromString<Response>(a))
+    assertThat(json.decodeFromString<Response>(a))
       .isEqualTo(Gson().fromJson(a, type))
   }
 
   @Test
   fun test2() {
     val type = object : TypeToken<ResponseB>() {}.type
-    assertThat(Json.decodeFromString<ResponseB>(b))
+    assertThat(json.decodeFromString<ResponseB>(b))
       .isEqualTo(Gson().fromJson(b, type))
   }
 
   @Test
   fun test3() {
     val type = object : TypeToken<List<A>>() {}.type
-    assertThat(Json.decodeFromString<List<A>>(list))
+    assertThat(json.decodeFromString<List<A>>(list))
       .isEqualTo(Gson().fromJson(list, type))
   }
+
+  // fail
+  @Test
+  fun test4() {
+    a<List<A>>(c)
+  }
+
+  private inline fun <reified T> a(j: String) {
+    val type = object : TypeToken<ResponseC<T>>() {}.type
+    val resultGson: ResponseC<T> = gson.fromJson(j, type)
+    val resultKotlinx: ResponseC<T> = json.decodeFromString(j)
+
+    assertThat(resultGson).isEqualTo(resultKotlinx)
+  }
+
+  @Serializable
+  data class ResponseC<T>(
+    val a: T
+  )
 
   @Serializable
   data class Response(
