@@ -72,7 +72,7 @@ const val GLIDE = "com.github.bumptech.glide:glide:4.9.0"
 const val COIL = "io.coil-kt:coil:0.9.5"
 
 const val JUNIT = "junit:junit:4.13-beta-1"
-const val TRUTH = "com.google.truth:truth:0.42"
+const val TRUTH = "com.google.truth:truth:1.1"
 const val MOCKITO_KOTLIN = "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
 const val TEST_RUNNER = "androidx.test:runner:1.1.1"
 const val TEST_RULE = "androidx.test:rules:1.1.0"

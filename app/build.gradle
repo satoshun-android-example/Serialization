@@ -65,6 +65,7 @@ dependencies {
   implementation "com.google.code.gson:gson:2.8.6"
 
   testImplementation JUNIT
+  testImplementation TRUTH
 
   androidTestImplementation TEST_RUNNER
   androidTestImplementation ESPRESSO
