@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.junit.Test
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
 
 class ListTest {
   private val json
@@ -51,8 +53,84 @@ class ListTest {
     a<List<A>>(c)
   }
 
-  private inline fun <reified T> a(j: String) {
+  @Test
+  fun test5() {
+    val type = object : TypeToken<ResponseC<List<A>>>() {}.type
+    println(type)
+    val resultGson: ResponseC<List<A>> = gson.fromJson(c, type)
+    val resultKotlinx: ResponseC<List<A>> = json.decodeFromString(c)
+
+    assertThat(resultGson).isEqualTo(resultKotlinx)
+  }
+
+  @Test
+  fun test6() {
+    val type = object : TypeToken<List<A>>() {}.type
+    b<List<A>>(c, type)
+  }
+
+  @Test
+  fun test7() {
+    c<List<A>>(c)
+  }
+
+  // fail
+  @Test
+  fun test8() {
+    a1<List<A>>(c)
+  }
+
+  @Test
+  fun test9() {
+    a2<List<A>>(c)
+    a2<A>(c)
+  }
+
+  private inline fun <reified T> a2(j: String) {
+    println(T::class.java)
+    println(List::class.java.isAssignableFrom(T::class.java))
+    println(T::class.java is Collection<*>)
+//    println(T::class.java)
+
     val type = object : TypeToken<ResponseC<T>>() {}.type
+    println(type)
+    val resultGson: ResponseC<T> = gson.fromJson(j, type)
+    val resultKotlinx: ResponseC<T> = json.decodeFromString(j)
+
+    assertThat(resultGson).isEqualTo(resultKotlinx)
+  }
+
+  private inline fun <reified T> a1(j: String) {
+    val type = object : TypeToken<ResponseC<T>>() {}.type
+    println(type)
+    val resultGson: ResponseC<T> = gson.fromJson(j, type)
+    val resultKotlinx: ResponseC<T> = json.decodeFromString(j)
+
+    assertThat(resultGson).isEqualTo(resultKotlinx)
+  }
+
+  private inline fun <reified T> a(j: String) {
+    val type = TypeToken.getParameterized(ResponseC::class.java, T::class.java).type
+    println(type)
+    val resultGson: ResponseC<T> = gson.fromJson(j, type)
+    val resultKotlinx: ResponseC<T> = json.decodeFromString(j)
+
+    assertThat(resultGson).isEqualTo(resultKotlinx)
+  }
+
+  private inline fun <reified T> b(j: String, clazz: Type) {
+    val type = TypeToken.getParameterized(ResponseC::class.java, clazz).type
+    println(type)
+    val resultGson: ResponseC<T> = gson.fromJson(j, type)
+    val resultKotlinx: ResponseC<T> = json.decodeFromString(j)
+
+    assertThat(resultGson).isEqualTo(resultKotlinx)
+  }
+
+  private inline fun <reified T> c(j: String) {
+    val typea = object : TypeToken<T>() {}.type
+    val type = TypeToken.getParameterized(ResponseC::class.java, typea).type
+    println(type)
     val resultGson: ResponseC<T> = gson.fromJson(j, type)
     val resultKotlinx: ResponseC<T> = json.decodeFromString(j)
 
