@@ -32,28 +32,28 @@ class DateTest {
     }
     println(json.decodeFromString<DateResponse2>(date))
   }
-}
 
-@Serializer(forClass = Date::class)
-object DateSerializer : KSerializer<Date> {
-  private val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+  @Serializable
+  data class DateResponse(
+    @Serializable(with = DateSerializer::class) val date: Date
+  )
 
-  override fun deserialize(decoder: Decoder): Date {
-    val date = decoder.decodeString()
-    return df.parse(date)
+  @Serializable
+  data class DateResponse2(
+    @Contextual val date: Date
+  )
+
+  @Serializer(forClass = Date::class)
+  object DateSerializer : KSerializer<Date> {
+    private val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+
+    override fun deserialize(decoder: Decoder): Date {
+      val date = decoder.decodeString()
+      return df.parse(date)
+    }
+
+    override fun serialize(encoder: Encoder, value: Date) {
+      encoder.encodeString(value.time.toString())
+    }
   }
-
-  override fun serialize(encoder: Encoder, value: Date) {
-    encoder.encodeString(value.time.toString())
-  }
 }
-
-@Serializable
-data class DateResponse(
-  @Serializable(with = DateSerializer::class) val date: Date
-)
-
-@Serializable
-data class DateResponse2(
-  @Contextual val date: Date
-)
