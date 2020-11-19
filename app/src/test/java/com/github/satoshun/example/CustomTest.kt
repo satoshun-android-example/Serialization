@@ -14,15 +14,42 @@ import kotlinx.serialization.modules.plus
 import org.junit.Test
 
 class CustomTest {
-  val a = """{"a": 1, "b": "100", "c": 1.0}"""
+  val a = """
+    {
+      "parent": {
+        "a": 1,
+        "b": "100",
+        "c": 1.0
+      }
+    }
+  """
+
+  val b = """
+    {
+      "parent": 10
+    }
+  """
 
   @Test
   fun test() {
     val json = Json {
     }
 
-    println(json.decodeFromString<A>(a))
+    println(json.decodeFromString<Parent>(a))
   }
+
+  @Test
+  fun test2() {
+    val json = Json {
+    }
+
+    println(json.decodeFromString<Parent>(b))
+  }
+
+  @Serializable
+  data class Parent(
+    val parent: A? = null
+  )
 
   @Serializable(with = ASerializer::class)
   data class A(
@@ -32,21 +59,26 @@ class CustomTest {
   )
 }
 
-object ASerializer : KSerializer<CustomTest.A> {
+object ASerializer : KSerializer<CustomTest.A?> {
   override val descriptor: SerialDescriptor
     get() = PrimitiveSerialDescriptor("A", PrimitiveKind.STRING)
 
-  override fun serialize(encoder: Encoder, value: CustomTest.A) {
+  override fun serialize(encoder: Encoder, value: CustomTest.A?) {
 //    encoder.encodeString("")
   }
 
-  override fun deserialize(decoder: Decoder): CustomTest.A {
-    val jsonDecoder = decoder as JsonDecoder
-    val json = jsonDecoder.decodeJsonElement().jsonObject
+  override fun deserialize(decoder: Decoder): CustomTest.A? {
+    val jsonDecoder = decoder as? JsonDecoder ?: return null
+    val jsonElement = jsonDecoder.decodeJsonElement()
+    val jsonObject = try {
+      jsonElement.jsonObject
+    } catch (e: Exception) {
+      return null
+    }
 
-    val a = json.getValue("a").jsonPrimitive.int
-    val b = json.getValue("b").jsonPrimitive.content
-    val c = json.getValue("c").jsonPrimitive.float
+    val a = jsonObject.getValue("a").jsonPrimitive.int
+    val b = jsonObject.getValue("b").jsonPrimitive.content
+    val c = jsonObject.getValue("c").jsonPrimitive.float
 
     return CustomTest.A(a, b.toInt(), c.toInt())
   }
