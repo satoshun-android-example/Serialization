@@ -61,7 +61,7 @@ dependencies {
   implementation DAGGER_RUNTIME
   kapt DAGGER_COMPILER
 
-  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.0"
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
   implementation "com.google.code.gson:gson:2.8.6"
 
   testImplementation JUNIT
