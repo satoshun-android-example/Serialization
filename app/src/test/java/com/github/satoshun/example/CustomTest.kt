@@ -2,15 +2,11 @@ package com.github.satoshun.example
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
-import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.plus
 import org.junit.Test
 
 class CustomTest {
@@ -59,10 +55,8 @@ class CustomTest {
   )
 }
 
+@Serializer(forClass = CustomTest.A::class)
 object ASerializer : KSerializer<CustomTest.A?> {
-  override val descriptor: SerialDescriptor
-    get() = PrimitiveSerialDescriptor("A", PrimitiveKind.STRING)
-
   override fun serialize(encoder: Encoder, value: CustomTest.A?) {
 //    encoder.encodeString("")
   }
