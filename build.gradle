@@ -10,7 +10,7 @@ buildscript {
     classpath KOTLIN_PLUGIN
     classpath VERSIONS_PLUGIN
     classpath SAFEARGS_PLUGIN
-    classpath "org.jetbrains.kotlin:kotlin-serialization:1.4.20"
+    classpath "org.jetbrains.kotlin:kotlin-serialization:1.4.21"
   }
 }
 
@@ -18,9 +18,12 @@ allprojects {
   repositories {
     google()
     jcenter()
+    maven {
+      url = "https://kotlin.bintray.com/kotlinx/"
+    }
   }
 
-  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
       jvmTarget = JavaVersion.VERSION_1_8
 
