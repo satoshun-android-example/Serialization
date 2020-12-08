@@ -1,6 +1,7 @@
 package com.github.satoshun.example
 
 import kotlinx.datetime.*
+import kotlinx.datetime.TimeZone
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -15,6 +16,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
 import org.junit.Test
+import java.util.*
 
 class KotlinxDateTest {
   val a = "2020-11-19T02:07:39.157Z"
@@ -44,6 +46,7 @@ class KotlinxDateTest {
       println(it)
       println(it.date.toString())
       println(it.date.toLocalDateTime(TimeZone.UTC))
+      println(Date(it.date.toEpochMilliseconds()))
     }
   }
 
