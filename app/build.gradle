@@ -64,10 +64,12 @@ dependencies {
   implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
   implementation "com.google.code.gson:gson:2.8.6"
   implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.1.1"
+  implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
 
   testImplementation JUNIT
   testImplementation TRUTH
 
   androidTestImplementation TEST_RUNNER
   androidTestImplementation ESPRESSO
+  implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
 }
