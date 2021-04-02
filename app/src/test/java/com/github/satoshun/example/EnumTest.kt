@@ -48,6 +48,21 @@ class EnumTest {
     println(A::class.java.getField(A.BBB.name).getAnnotation(SerialName::class.java))
   }
 
+  @Test
+  fun test5() {
+    val value = "unknown"
+    val result = A.values().firstOrNull {
+      A::class.java.getField(it.name).getAnnotation(SerialName::class.java)?.value == value
+    }
+    println(result)
+  }
+
+  @Test
+  fun te1st6() {
+    println(A.getByString("aaa"))
+    println(A.getByString("bbb"))
+  }
+
   @Serializable
   data class Response(
     val a: A = A.UNKNOWN
@@ -60,6 +75,13 @@ class EnumTest {
     @SerialName("bbb")
     BBB,
 
-    UNKNOWN
+    @SerialName("unknown")
+    UNKNOWN;
+
+    companion object {
+      fun getByString(target: String) = values().firstOrNull {
+        A::class.java.getField(it.name).getAnnotation(SerialName::class.java)?.value == target
+      } ?: UNKNOWN
+    }
   }
 }
