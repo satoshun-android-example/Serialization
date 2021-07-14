@@ -1,25 +1,25 @@
 package dependencies
 
-const val COMPILE_SDK = 29
+const val COMPILE_SDK = 30
 const val MIN_SDK = 21
-const val TARGET_SDK = 29
+const val TARGET_SDK = 30
 
-private const val VKOTLIN = "1.4.32"
-private const val VNAVIGATION = "2.2.0"
+private const val VKOTLIN = "1.5.21"
+private const val VNAVIGATION = "2.3.5"
 
-const val ANDROID_PLUGIN = "com.android.tools.build:gradle:4.1.3"
+const val ANDROID_PLUGIN = "com.android.tools.build:gradle:4.2.2"
 const val KOTLIN_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VKOTLIN"
 const val SAFEARGS_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:$VNAVIGATION"
 const val VERSIONS_PLUGIN = "com.github.ben-manes:gradle-versions-plugin:0.20.0"
 
-private const val VCOUROUTINE = "1.4.1"
+private const val VCOUROUTINE = "1.5.0"
 const val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib:$VKOTLIN"
 const val COROUTINE = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VCOUROUTINE"
 const val UI_COROUTINE = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VCOUROUTINE"
 
 const val KTX = "androidx.core:core-ktx:1.3.1"
-const val ACTIVITYX = "androidx.activity:activity-ktx:1.2.0-beta01"
-const val FRAGMENTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
+const val ACTIVITYX = "androidx.activity:activity-ktx:1.2.0"
+const val FRAGMENTX = "androidx.fragment:fragment-ktx:1.3.0"
 
 const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
@@ -64,12 +64,12 @@ const val WORK_MANAGER = "androidx.work:work-runtime-ktx:2.0.0"
 
 const val ANDROID_ANNOTATION = "androidx.annotation:annotation:1.0.0"
 
-private const val VDAGGER = "2.29.1"
+private const val VDAGGER = "2.37"
 const val DAGGER_RUNTIME = "com.google.dagger:dagger:$VDAGGER"
 const val DAGGER_COMPILER = "com.google.dagger:dagger-compiler:$VDAGGER"
 
 const val GLIDE = "com.github.bumptech.glide:glide:4.9.0"
-const val COIL = "io.coil-kt:coil:0.9.5"
+const val COIL = "io.coil-kt:coil:1.0.0"
 
 const val JUNIT = "junit:junit:4.13-beta-1"
 const val TRUTH = "com.google.truth:truth:1.1"
